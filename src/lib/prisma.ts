@@ -1,14 +1,61 @@
 // Production Prisma client with fallback for development
 import { PrismaClient } from '@prisma/client'
 
-type PrismaClientType = PrismaClient | typeof mockPrisma
+interface UserCreateData {
+  email: string
+  name?: string
+  password: string
+}
+
+interface UserWhereUnique {
+  where: { email?: string; id?: string }
+}
+
+interface UserUpdateArgs {
+  where: { id: string }
+  data: Record<string, unknown>
+}
+
+interface MockPrisma {
+  user: {
+    findUnique: (args: UserWhereUnique) => Promise<any>
+    create: (args: { data: UserCreateData }) => Promise<any>
+    update: (args: UserUpdateArgs) => Promise<any>
+    delete: () => Promise<any>
+    findMany: () => Promise<any[]>
+  }
+  problem: {
+    findMany: () => Promise<any[]>
+    findUnique: () => Promise<any>
+    create: () => Promise<any>
+    count: () => Promise<number>
+  }
+  submission: {
+    create: () => Promise<any>
+    findMany: () => Promise<any[]>
+    deleteMany: () => Promise<any>
+  }
+  course: {
+    findMany: () => Promise<any[]>
+    create: () => Promise<any>
+    deleteMany: () => Promise<any>
+  }
+  userProgress: {
+    create: () => Promise<any>
+    findMany: () => Promise<any[]>
+    deleteMany: () => Promise<any>
+  }
+  $disconnect: () => Promise<void>
+}
+
+type PrismaClientType = PrismaClient | MockPrisma
 
 // Mock implementation for development (when Prisma is not set up)
-const createMockPrisma = () => {
+const createMockPrisma = (): MockPrisma => {
   console.log('Using mock database for development')
   return {
     user: {
-      findUnique: async (args: { where: { email?: string; id?: string } }) => {
+      findUnique: async (args: UserWhereUnique) => {
         if (args.where?.email === 'demo@example.com') {
           return {
             id: '1',
@@ -26,7 +73,7 @@ const createMockPrisma = () => {
         }
         return null
       },
-      create: async (args: { data: { email: string; name?: string; password: string } }) => ({
+      create: async (args: { data: UserCreateData }) => ({
         id: Math.random().toString(36).substr(2, 9),
         email: args.data.email,
         name: args.data.name,
@@ -39,7 +86,7 @@ const createMockPrisma = () => {
         createdAt: new Date(),
         updatedAt: new Date()
       }),
-      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+      update: async (args: UserUpdateArgs) => ({
         id: args.where.id,
         email: 'demo@example.com',
         name: 'Demo User',

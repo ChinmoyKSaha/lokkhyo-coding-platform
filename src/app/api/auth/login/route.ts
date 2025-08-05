@@ -2,14 +2,21 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
 // Try to import the real modules, fall back to mocks if not available
-let bcrypt: any
-let jwt: any
+let bcrypt: {
+  compare: (password: string, hash: string) => Promise<boolean>
+}
+let jwt: {
+  sign: (payload: object, secret: string, options?: object) => string
+}
 
 try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   bcrypt = require('bcryptjs')
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   jwt = require('jsonwebtoken')
-} catch (error) {
+} catch {
   console.log('Using mock auth modules for development')
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const mocks = require('@/lib/auth-mocks')
   bcrypt = mocks.bcrypt
   jwt = mocks.jwt
@@ -48,9 +55,10 @@ export async function POST(request: NextRequest) {
     })
 
     // Create JWT token
+    const secret = process.env.JWT_SECRET || 'development-secret-key'
     const token = jwt.sign(
       { userId: user.id, email: user.email },
-      process.env.JWT_SECRET || 'development-secret-key',
+      secret,
       { expiresIn: '7d' }
     )
 

@@ -1,13 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
+interface JwtPayload {
+  userId: string
+  email: string
+  exp?: number
+}
+
 // Try to import the real modules, fall back to mocks if not available
-let jwt: any
+let jwt: {
+  verify: (token: string, secret: string) => JwtPayload
+}
 
 try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   jwt = require('jsonwebtoken')
-} catch (error) {
+} catch {
   console.log('Using mock jwt module for development')
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const mocks = require('@/lib/auth-mocks')
   jwt = mocks.jwt
 }
@@ -23,7 +33,8 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'development-secret-key') as any
+    const secret = process.env.JWT_SECRET || 'development-secret-key'
+    const decoded = jwt.verify(token, secret)
     
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },

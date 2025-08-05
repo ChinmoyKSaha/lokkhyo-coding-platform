@@ -1,4 +1,5 @@
 import { Users, Target, Lightbulb, Heart } from "lucide-react"
+import Link from "next/link"
 
 const team = [
   {
@@ -68,7 +69,7 @@ export default function AboutPage() {
               About CodePlatform
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              We're on a mission to make programming education accessible, engaging, and effective for developers at every stage of their journey.
+              We&apos;re on a mission to make programming education accessible, engaging, and effective for developers at every stage of their journey.
             </p>
           </div>
         </div>
@@ -87,10 +88,10 @@ export default function AboutPage() {
                   CodePlatform was born from a simple observation: traditional programming education often falls short of preparing developers for real-world challenges. We set out to bridge this gap by creating an interactive learning environment that mirrors the actual development experience.
                 </p>
                 <p>
-                  Founded in 2023 by a team of experienced developers and educators, we've built a platform that combines the best of online learning with practical, hands-on coding experience. Our integrated code editor, comprehensive courses, and vibrant community create an ecosystem where learning never stops.
+                  Founded in 2023 by a team of experienced developers and educators, we&apos;ve built a platform that combines the best of online learning with practical, hands-on coding experience. Our integrated code editor, comprehensive courses, and vibrant community create an ecosystem where learning never stops.
                 </p>
                 <p>
-                  Today, we're proud to serve over 50,000 developers worldwide, from complete beginners taking their first steps in programming to experienced professionals looking to master new technologies.
+                  Today, we&apos;re proud to serve over 50,000 developers worldwide, from complete beginners taking their first steps in programming to experienced professionals looking to master new technologies.
                 </p>
               </div>
             </div>
@@ -221,21 +222,21 @@ export default function AboutPage() {
             Join Our Journey
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Be part of a community that's shaping the future of programming education.
+            Be part of a community that&apos;s shaping the future of programming education.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
+            <Link
               href="/courses"
               className="inline-flex items-center px-8 py-3 text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
             >
               Start Learning
-            </a>
-            <a
+            </Link>
+            <Link
               href="/community"
               className="inline-flex items-center px-8 py-3 text-lg font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
             >
               Join Community
-            </a>
+            </Link>
           </div>
         </div>
       </section>
