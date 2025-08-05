@@ -1,8 +1,8 @@
 // Mock implementation for development when dependencies are not installed
 
 interface JWTMock {
-  sign: (payload: any, secret: string, options?: any) => string
-  verify: (token: string, secret: string) => any
+  sign: (payload: unknown, secret: string, options?: unknown) => string
+  verify: (token: string, secret: string) => unknown
 }
 
 interface BcryptMock {
@@ -11,15 +11,16 @@ interface BcryptMock {
 }
 
 export const jwt: JWTMock = {
-  sign: (payload, secret, options = {}) => {
+  sign: (payload, _secret, _options = {}) => {
     console.log('Mock JWT sign called')
     // Create a simple base64 encoded token for development
     const header = Buffer.from(JSON.stringify({ typ: 'JWT', alg: 'HS256' })).toString('base64')
-    const payloadStr = Buffer.from(JSON.stringify({ ...payload, exp: Date.now() + 7 * 24 * 60 * 60 * 1000 })).toString('base64')
+    const payloadObj = typeof payload === 'object' && payload !== null ? payload : { data: payload }
+    const payloadStr = Buffer.from(JSON.stringify({ ...payloadObj, exp: Date.now() + 7 * 24 * 60 * 60 * 1000 })).toString('base64')
     const signature = Buffer.from('mock-signature').toString('base64')
     return `${header}.${payloadStr}.${signature}`
   },
-  verify: (token, secret) => {
+  verify: (token, _secret) => {
     console.log('Mock JWT verify called')
     try {
       const parts = token.split('.')
@@ -27,7 +28,7 @@ export const jwt: JWTMock = {
       const payload = JSON.parse(Buffer.from(parts[1], 'base64').toString())
       if (payload.exp < Date.now()) throw new Error('Token expired')
       return payload
-    } catch (error) {
+    } catch (_error) {
       throw new Error('Invalid token')
     }
   }

@@ -15,7 +15,9 @@
     "db:reset": "prisma migrate reset",
     "deploy:vercel": "vercel --prod",
     "deploy:build": "npm run db:generate && npm run build",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "vercel-build": "npm run db:generate && npm run build",
+    "preview": "npm run build && npm run start"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",

@@ -2,6 +2,16 @@
 
 A comprehensive coding platform built with Next.js, TypeScript, and Tailwind CSS. Features interactive code editing, structured courses, coding challenges, and a vibrant community.
 
+## 🎓 **GitHub Student Pack Deployment Ready!**
+
+This project is optimized for **FREE hosting** using GitHub Student Developer Pack benefits:
+- ✅ **Vercel Pro** (FREE - normally $20/month)
+- ✅ **Supabase** (FREE tier with generous limits)
+- ✅ **GitHub Actions** (Unlimited minutes)
+- ✅ **Custom Domain** (FREE .me domain via Namecheap)
+
+**🚀 Quick Deploy**: Run `deploy-student-pack.bat` and follow the guide!
+
 ## 🚀 Features
 
 ### 📚 Learning Platform
@@ -122,6 +132,34 @@ A comprehensive coding platform built with Next.js, TypeScript, and Tailwind CSS
 - **Discussions**: Problem discussions and community forums
 - **Contests**: Timed coding contests
 - **Teams**: Collaborative problem solving
+
+## 🎓 Deployment with GitHub Student Pack
+
+### 🌟 FREE Hosting Stack
+- **Vercel Pro**: FREE (normally $20/month)
+- **Supabase**: FREE PostgreSQL database
+- **Custom Domain**: FREE .me domain (Namecheap)
+- **GitHub Actions**: Unlimited CI/CD minutes
+
+### 🚀 One-Click Deploy
+```bash
+# Run the automated deployment script
+./deploy-student-pack.bat    # Windows
+./deploy-student-pack.sh     # macOS/Linux
+```
+
+### 📖 Detailed Guides
+- **[Student Pack Guide](./STUDENT-PACK-DEPLOY.md)** - Complete deployment walkthrough
+- **[Vercel + Supabase](./VERCEL-SUPABASE-DEPLOY.md)** - Step-by-step setup
+- **[GitHub Integration](./GITHUB-DEPLOYMENT.md)** - Auto-deployment setup
+
+### ⚡ Quick Steps
+1. **Activate Student Pack** at [education.github.com](https://education.github.com/pack)
+2. **Push to GitHub**: `git push origin main`
+3. **Deploy to Vercel**: Import repository at [vercel.com](https://vercel.com)
+4. **Setup Database**: Create project at [supabase.com](https://supabase.com)
+5. **Configure ENV**: Add variables in Vercel dashboard
+6. **Go Live**: Your app is deployed! 🎉
 
 ## 🚀 Deployment with GitHub Student Pack
 

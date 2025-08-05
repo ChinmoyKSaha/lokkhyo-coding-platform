@@ -276,7 +276,13 @@ const getLessonIcon = (type: string) => {
   }
 }
 
-export default function CourseDetailPage({ params }: { params: { id: string } }) {
+interface CourseDetailPageProps {
+  params: {
+    id: string
+  }
+}
+
+export default function CourseDetailPage({ params }: CourseDetailPageProps) {
   const course = courseData[parseInt(params.id) as keyof typeof courseData]
   
   if (!course) {
